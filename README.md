@@ -70,6 +70,10 @@ ASP.NET MVCの場合は、`dotnet new mvc`
   - Windows認証する場合: `Trusted_Connection=True;` 
   - 複数のセットを開けるか: `MultipleActiveResultSets=True;`
 
+## マイグレーション
+- `dotnet ef migrations add {マイグレーション名}` をコマンドで実行することで、マイグレーションを生成。
+- 続けて `dotnet ef database update` でデータベースを生成
+
 # デバッグ
 ## VS Codeでデバッグ実行するには?
 
@@ -80,3 +84,8 @@ ASP.NET MVCの場合は、`dotnet new mvc`
 ## VS Codeで参照が機能しないときは?
 
 ターミナルで `dotnet restore` を実行する
+
+## VS CodeからlocalDBに直接接続するには?
+
+- SQL Server連携から、 `Data Source=(localdb)\MSSQLLocalDB;Trusted_Connection=True;` を指定して接続する。
+
