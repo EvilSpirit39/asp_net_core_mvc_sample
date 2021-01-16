@@ -93,6 +93,16 @@ ASP.NET MVCの場合は、`dotnet new mvc`
   - `--controllerNameSpace` : コントローラが配置される名前空間
   - `--useDefaultLayout` : デフォルトレイアウトを使用する
   - `--referenceScriptLibraries` : スクリプトライブラリの参照を可能とする
+
+## コントローラの書き方
+- `View` メソッドで戻り値を返すことでビューを呼び出す。引数には引き渡すデータを渡す。
+- コンテキストは`Add`, `Update` `Remove` で変更、変更を反映するのは`SaveChangesAsync`
+
+## ビューの書き方
+- ビューは`Views/(コントローラ名)/(アクション名).cshtml` ファイルに書く。
+- Razor構文というhtml拡張構文
+- 最初の`@model` で引き渡すデータ型を指定
+
 # デバッグ
 ## VS Codeでデバッグ実行するには?
 
