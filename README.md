@@ -20,6 +20,19 @@ https://docs.microsoft.com/ja-jp/dotnet/core/tools/
 ターミナルで `dotnet new` コマンドを利用する。
 ASP.NET MVCの場合は、`dotnet new mvc` 
 
+## 単純なコントローラーを作る
+
+単純な(DBアクセスを含まない)コントローラーを作るには、
+
+- `Controllers` ディレクトリ下に `Controller` サフィックスを持つファイルを作る。
+- その中に`Microsoft.AspNetCore.Mvc.Controller` を継承した、ファイルと同名のクラスを作る。
+- アクションのハンドラとして、`IActionResult` を返すメソッドを用意する。
+  - 非同期処理の場合、`async Task<IActionResult>` となる。
+- ハンドラの中身を記述し、最終的に値を返す。
+  - 単にテキストを返すのであれば、`Content` メソッド。
+  - リダイレクトを行う、`Redirect` や `RedirectToActionResult` もある。
+  - エラーのステータスコードを返す、`NotFound` などもある。
+
 # デバッグ
 ## VS Codeでデバッグ実行するには?
 
