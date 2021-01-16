@@ -1,5 +1,6 @@
 # asp_net_core_mvc_sample
 ASP.NET Core MVCを試すコード
+DBはSQL ServerのLocalDBを前提
 
 # .NET Core 開発環境
 
@@ -61,6 +62,13 @@ ASP.NET MVCの場合は、`dotnet new mvc`
 - `Models` ディレクトリ下にファイルを作り、 `Microsoft.EntityFrameworkCore.DbContext` を継承したクラスを作成。
   - プロパティに `DbSet` ジェネリックを使ったモデルへのアクセサーを用意する。
 - `Startup.cs` の`ConfigureServices` 下で`services.AddDbContext` を呼び出し、コンテキストとDBを関連付ける。
+
+## 接続文字列指定
+- `appsettings.json` に`ConnectionStrings` プロパティを追加し、その子として `コンテキスト名: 接続文字列` のプロパティを追加。
+  - サーバー(LocalDBの場合): `Server=(localdb)\\MSSQLLocalDB;`
+  - DB名: `Database={DB名};`
+  - Windows認証する場合: `Trusted_Connection=True;` 
+  - 複数のセットを開けるか: `MultipleActiveResultSets=True;`
 
 # デバッグ
 ## VS Codeでデバッグ実行するには?
