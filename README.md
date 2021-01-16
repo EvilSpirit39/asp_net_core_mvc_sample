@@ -1,11 +1,14 @@
 # asp_net_core_mvc_sample
 ASP.NET Core MVCを試すコード
+DBはSQL ServerのLocalDBを前提
 
-# .NET Core 開発環境
+# .NET 5 開発環境
 
-.NET Core SDKをインストールする。内部には.NET CLIも含まれる。
+.NET 5 SDKをインストールする。内部には.NET CLIも含まれる。
 
-https://docs.microsoft.com/ja-jp/dotnet/core/sdk
+https://dotnet.microsoft.com/download
+
+chocolateyの場合はdotnet-sdkパッケージをインストールする。( `choco install dotnet-sdk` )
 
 # Visual Studioを使わずにビルド等を行うには?
 
@@ -19,6 +22,19 @@ https://docs.microsoft.com/ja-jp/dotnet/core/tools/
 
 ターミナルで `dotnet new` コマンドを利用する。
 ASP.NET MVCの場合は、`dotnet new mvc` 
+
+## ツールをインストール
+- `dotnet tool install --global dotnet-ef`
+- `dotnet tool install --global dotnet-aspnet-codegenerator`
+  - .NET のバージョンと一致したものを入れる。
+
+## パッケージを追加
+- Entity Framework Core (Sql Server)を追加する
+  - `dotnet add package Microsoft.EntityFrameworkCore.SqlServer`
+- Entity Framework Core (Tools)を追加する
+  - `dotnet add package Microsoft.EntityFrameworkCore.Tools`
+- VisualStudio.Web.CodeGeneration.Designを追加する
+  - `dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 ## 単純なコントローラーを作る
 
@@ -38,6 +54,55 @@ ASP.NET MVCの場合は、`dotnet new mvc`
 - ルーティングは`Startup.cs` の `UseEndpoints` 関数内で定義する。
   - デフォルトでは`{コントローラ名}/{アクション名}/{id}` となっている。
 
+## モデル作成
+- `Models` ディレクトリ下にファイルを作る。
+- 内部にファイルと同名のクラスを作る
+- クラスのプロパティを作成する。
+  - `System.ComponentModel.DisplayName` 属性を付けることで、ビューでの表示名を設定できる
+  - 個々のプロパティに情報や制限を付けるには、`System.ComponentModel.DataAnnotations` の属性を使う。
+    - `StringLength` や `Range` などで制限
+    - `DataType` などで付加的な型の情報を入れることも(価格や電話番号、メールアドレスなどの指定が可能)
+    - データのバージョン管理を行うには、`Timestamp` 属性を
+  - 複数プロパティにまたがる検証を可能とするには、`IValidatableObject` インタフェースの`Validate` メソッドを実装する。
+    - 戻り値が `IEnumerable<ValidationResult>` のため、検証が1個でも列挙可能な形で返す必要あり。
+
+
+## コンテキスト作成・設定
+- `Models` ディレクトリ下にファイルを作り、 `Microsoft.EntityFrameworkCore.DbContext` を継承したクラスを作成。
+  - プロパティに `DbSet` ジェネリックを使ったモデルへのアクセサーを用意する。
+- `Startup.cs` の`ConfigureServices` 下で`services.AddDbContext` を呼び出し、コンテキストとDBを関連付ける。
+
+## 接続文字列指定
+- `appsettings.json` に`ConnectionStrings` プロパティを追加し、その子として `コンテキスト名: 接続文字列` のプロパティを追加。
+  - サーバー(LocalDBの場合): `Server=(localdb)\\MSSQLLocalDB;`
+  - DB名: `Database={DB名};`
+  - Windows認証する場合: `Trusted_Connection=True;` 
+  - 複数のセットを開けるか: `MultipleActiveResultSets=True;`
+
+## マイグレーション
+- `dotnet ef migrations add {マイグレーション名}` をコマンドで実行することで、マイグレーションを生成。
+- 続けて `dotnet ef database update` でデータベースを生成
+
+## スキャフォールディング
+- `dotnet aspnet-codegenerator controller` コマンドでコントローラとビューを生成する。オプションは以下。
+  - `--project` : プロジェクトパス
+  - `--controllerName` コントローラ名
+  - `--model` : モデル名
+  - `--dataContext` : コンテキスト名
+  - `--relativeFolderPath` : コントローラを保存するフォルダパス
+  - `--controllerNameSpace` : コントローラが配置される名前空間
+  - `--useDefaultLayout` : デフォルトレイアウトを使用する
+  - `--referenceScriptLibraries` : スクリプトライブラリの参照を可能とする
+
+## コントローラの書き方
+- `View` メソッドで戻り値を返すことでビューを呼び出す。引数には引き渡すデータを渡す。
+- コンテキストは`Add`, `Update` `Remove` で変更、変更を反映するのは`SaveChangesAsync`
+
+## ビューの書き方
+- ビューは`Views/(コントローラ名)/(アクション名).cshtml` ファイルに書く。
+- Razor構文というhtml拡張構文
+- 最初の`@model` で引き渡すデータ型を指定
+
 # デバッグ
 ## VS Codeでデバッグ実行するには?
 
@@ -48,3 +113,8 @@ ASP.NET MVCの場合は、`dotnet new mvc`
 ## VS Codeで参照が機能しないときは?
 
 ターミナルで `dotnet restore` を実行する
+
+## VS CodeからlocalDBに直接接続するには?
+
+- SQL Server連携から、 `Data Source=(localdb)\MSSQLLocalDB;Trusted_Connection=True;` を指定して接続する。
+
