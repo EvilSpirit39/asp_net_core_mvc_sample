@@ -20,6 +20,12 @@ https://docs.microsoft.com/ja-jp/dotnet/core/tools/
 ターミナルで `dotnet new` コマンドを利用する。
 ASP.NET MVCの場合は、`dotnet new mvc` 
 
+## パッケージを追加
+- Entity Framework Core (Sql Server)を追加する
+  - `dotnet add package Microsoft.EntityFrameworkCore.SqlServer`
+- Entity Framework Core (Tools)を追加する
+  - `dotnet add package Microsoft.EntityFrameworkCore.Tools`
+
 ## 単純なコントローラーを作る
 
 単純な(DBアクセスを含まない)コントローラーを作るには、
