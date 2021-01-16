@@ -57,6 +57,11 @@ ASP.NET MVCの場合は、`dotnet new mvc`
     - 戻り値が `IEnumerable<ValidationResult>` のため、検証が1個でも列挙可能な形で返す必要あり。
 
 
+## コンテキスト作成・設定
+- `Models` ディレクトリ下にファイルを作り、 `Microsoft.EntityFrameworkCore.DbContext` を継承したクラスを作成。
+  - プロパティに `DbSet` ジェネリックを使ったモデルへのアクセサーを用意する。
+- `Startup.cs` の`ConfigureServices` 下で`services.AddDbContext` を呼び出し、コンテキストとDBを関連付ける。
+
 # デバッグ
 ## VS Codeでデバッグ実行するには?
 
