@@ -48,6 +48,7 @@ namespace asp_net_core_mvc_sample
 
             app.UseEndpoints(endpoints =>
             {
+                // ここでルーティングを定義する
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

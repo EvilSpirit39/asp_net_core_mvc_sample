@@ -33,6 +33,11 @@ ASP.NET MVCの場合は、`dotnet new mvc`
   - リダイレクトを行う、`Redirect` や `RedirectToActionResult` もある。
   - エラーのステータスコードを返す、`NotFound` などもある。
 
+## ルーティング
+
+- ルーティングは`Startup.cs` の `UseEndpoints` 関数内で定義する。
+  - デフォルトでは`{コントローラ名}/{アクション名}/{id}` となっている。
+
 # デバッグ
 ## VS Codeでデバッグ実行するには?
 
