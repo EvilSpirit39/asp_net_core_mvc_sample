@@ -38,6 +38,19 @@ ASP.NET MVCの場合は、`dotnet new mvc`
 - ルーティングは`Startup.cs` の `UseEndpoints` 関数内で定義する。
   - デフォルトでは`{コントローラ名}/{アクション名}/{id}` となっている。
 
+## モデル作成
+- `Models` ディレクトリ下にファイルを作る。
+- 内部にファイルと同名のクラスを作る
+- クラスのプロパティを作成する。
+  - `System.ComponentModel.DisplayName` 属性を付けることで、ビューでの表示名を設定できる
+  - 個々のプロパティに情報や制限を付けるには、`System.ComponentModel.DataAnnotations` の属性を使う。
+    - `StringLength` や `Range` などで制限
+    - `DataType` などで付加的な型の情報を入れることも(価格や電話番号、メールアドレスなどの指定が可能)
+    - データのバージョン管理を行うには、`Timestamp` 属性を
+  - 複数プロパティにまたがる検証を可能とするには、`IValidatableObject` インタフェースの`Validate` メソッドを実装する。
+    - 戻り値が `IEnumerable<ValidationResult>` のため、検証が1個でも列挙可能な形で返す必要あり。
+
+
 # デバッグ
 ## VS Codeでデバッグ実行するには?
 
