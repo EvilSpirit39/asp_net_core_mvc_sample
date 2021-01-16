@@ -20,6 +20,11 @@ https://docs.microsoft.com/ja-jp/dotnet/core/tools/
 ターミナルで `dotnet new` コマンドを利用する。
 ASP.NET MVCの場合は、`dotnet new mvc` 
 
+# デバッグ
+## VS Codeでデバッグ実行するには?
+
+左端のタブより「デバッグ実行(矢印と虫のマーク)」をクリックする
+
 # トラブルシューティング
 
 ## VS Codeで参照が機能しないときは?
