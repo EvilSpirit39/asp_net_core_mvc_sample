@@ -83,6 +83,16 @@ ASP.NET MVCの場合は、`dotnet new mvc`
 - `dotnet ef migrations add {マイグレーション名}` をコマンドで実行することで、マイグレーションを生成。
 - 続けて `dotnet ef database update` でデータベースを生成
 
+## スキャフォールディング
+- `dotnet aspnet-codegenerator controller` コマンドでコントローラとビューを生成する。オプションは以下。
+  - `--project` : プロジェクトパス
+  - `--controllerName` コントローラ名
+  - `--model` : モデル名
+  - `--dataContext` : コンテキスト名
+  - `--relativeFolderPath` : コントローラを保存するフォルダパス
+  - `--controllerNameSpace` : コントローラが配置される名前空間
+  - `--useDefaultLayout` : デフォルトレイアウトを使用する
+  - `--referenceScriptLibraries` : スクリプトライブラリの参照を可能とする
 # デバッグ
 ## VS Codeでデバッグ実行するには?
 
