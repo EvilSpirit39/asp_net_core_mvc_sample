@@ -2,11 +2,13 @@
 ASP.NET Core MVCを試すコード
 DBはSQL ServerのLocalDBを前提
 
-# .NET Core 開発環境
+# .NET 5 開発環境
 
-.NET Core SDKをインストールする。内部には.NET CLIも含まれる。
+.NET 5 SDKをインストールする。内部には.NET CLIも含まれる。
 
-https://docs.microsoft.com/ja-jp/dotnet/core/sdk
+https://dotnet.microsoft.com/download
+
+chocolateyの場合はdotnet-sdkパッケージをインストールする。( `choco install dotnet-sdk` )
 
 # Visual Studioを使わずにビルド等を行うには?
 
@@ -21,11 +23,18 @@ https://docs.microsoft.com/ja-jp/dotnet/core/tools/
 ターミナルで `dotnet new` コマンドを利用する。
 ASP.NET MVCの場合は、`dotnet new mvc` 
 
+## ツールをインストール
+- `dotnet tool install --global dotnet-ef`
+- `dotnet tool install --global dotnet-aspnet-codegenerator`
+  - .NET のバージョンと一致したものを入れる。
+
 ## パッケージを追加
 - Entity Framework Core (Sql Server)を追加する
   - `dotnet add package Microsoft.EntityFrameworkCore.SqlServer`
 - Entity Framework Core (Tools)を追加する
   - `dotnet add package Microsoft.EntityFrameworkCore.Tools`
+- VisualStudio.Web.CodeGeneration.Designを追加する
+  - `dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design`
 
 ## 単純なコントローラーを作る
 
